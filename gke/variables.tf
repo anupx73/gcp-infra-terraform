@@ -23,12 +23,20 @@ variable "release_channel" {
   description = "Release channel for GKE"
 }
 
+variable "subnet_ip_range" {
+  description = "The ip range for vpc subnet"
+}
+
 variable "ip_range_pods" {
-  description = "The secondary ip range to use for pods"
+  description = "The ip range to use for GKE pods"
 }
 
 variable "ip_range_services" {
-  description = "The secondary ip range to use for services"
+  description = "The ip range to use for GKE services"
+}
+
+variable "ip_range_secondary" {
+  description = "The secondary ip range to use for cluster"
 }
 
 variable "service_account" {

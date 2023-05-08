@@ -53,15 +53,15 @@ output "user1" {
   value                           = mongodbatlas_database_user.user.username
 }
 
-# ip access list
-resource "mongodbatlas_project_ip_access_list" "ip" {
-  project_id                      = mongodbatlas_project.project.id
-  cidr_block                      = var.ip_address
-  comment                         = "IP Address for accessing the cluster"
-}
-output "ipaccesslist" {
-  value                           = mongodbatlas_project_ip_access_list.ip.ip_address
-}
+# # ip access list
+# resource "mongodbatlas_project_ip_access_list" "ip" {
+#   project_id                      = mongodbatlas_project.project.id
+#   cidr_block                      = var.ip_address
+#   comment                         = "IP Address for accessing the cluster"
+# }
+# output "ipaccesslist" {
+#   value                           = mongodbatlas_project_ip_access_list.ip.ip_address
+# }
 
 # vpc network peering
 # TODO

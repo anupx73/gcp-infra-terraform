@@ -1,0 +1,13 @@
+replicaCount: 1
+
+ingress:
+  name: bpcalc-ingress
+  gke_static_ip: bpcalc-ip
+
+frontend:
+  name: frontend-service
+  port: 80
+
+backend:
+  name: backend-service
+  port: 80

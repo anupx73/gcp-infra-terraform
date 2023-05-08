@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+  annotations:
+    kubernetes.io/ingress.class: gce
+    kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.gke_static_ip }}    
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: {{ .Values.frontend.name }}
+            port:
+              number: {{ .Values.frontend.port }}
+      - path: /api/
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: {{ .Values.backend.name }}
+            port:
+              number: {{ .Values.backend.port }}

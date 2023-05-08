@@ -1,3 +1,7 @@
+variable "app_name" {
+  description = "The App name to be used for LoadBalancer IP"
+}
+
 variable "project_id" {
   description = "The project ID to host the cluster in"
 }

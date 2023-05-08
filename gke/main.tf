@@ -1,12 +1,12 @@
 data "google_client_config" "default" {}
 
-# resource "google_compute_global_address" "gke_ingress_ip" {
-#   name                                  = "bpcalc-ip"
-#   project                               = var.project_id
-#   description                           = "Static IP address reserved for ingress."
-#   address_type                          = "EXTERNAL"
-#   ip_version                            = "IPV4"
-# }
+resource "google_compute_global_address" "gke_ingress_ip" {
+  name                                  = "${var.app_name}-ip"
+  project                               = var.project_id
+  description                           = "Static IP address reserved for ingress."
+  address_type                          = "EXTERNAL"
+  ip_version                            = "IPV4"
+}
 
 resource "google_compute_network" "vpc" {
   name                                  = "${var.cluster_name}-vpc"

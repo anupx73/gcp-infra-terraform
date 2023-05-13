@@ -1,7 +1,3 @@
-variable "app_name" {
-  description = "The App name to be used for LoadBalancer IP"
-}
-
 variable "project_id" {
   description = "The project ID to host the cluster in"
 }
@@ -25,6 +21,14 @@ variable "kubernetes_version" {
 
 variable "release_channel" {
   description = "Release channel for GKE"
+}
+
+variable "frontend_ip_name" {
+  description = "The static ip to be used by frontend service LoadBalancer"
+}
+
+variable "backend_ip_name" {
+  description = "The static ip to be used by backend service LoadBalancer"
 }
 
 variable "subnet_ip_range" {

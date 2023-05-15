@@ -36,13 +36,13 @@ This repo holds the IaC for creating infra layer to deploy and run `react-bpcalc
   ``` 
   helm repo add hashicorp https://helm.releases.hashicorp.com
   helm repo update
-  helm install vault hashicorp/vault --set "server.dev.enabled=true"
+  helm install vault hashicorp/vault --namespace ns-vault --create-namespace --set "server.dev.enabled=true"  # server.dev.enabled should not be used in prod env
   ```
 
 - Add MongoDB Atlas url from Atlas terraform output and DB credentials from terrafirm.tfvars
   ```
-  kubectl get pods
-  kubectl exec -it vault-0 -- /bin/sh
+  kubectl -n ns-vault get pods 
+  kubectl -n ns-vault exec -it vault-0 -- /bin/sh
   vault secrets enable -path=internal kv-v2
   vault kv put internal/database/config username="" password="" url=""
   vault kv get internal/database/config
@@ -55,9 +55,9 @@ This repo holds the IaC for creating infra layer to deploy and run `react-bpcalc
     EOF
   vault write auth/kubernetes/role/internal-app \
     bound_service_account_names=internal-app \
-    bound_service_account_namespaces=default \
+    bound_service_account_namespaces=ns-backend \
     policies=internal-app \
-    ttl=48h
+    ttl=24h
 
   exit
   ```
@@ -84,13 +84,11 @@ This repo holds the IaC for creating infra layer to deploy and run `react-bpcalc
   curl -fsS https://raw.githubusercontent.com/grafana/loki/master/tools/promtail.sh | sh -s 596161 eyJrIjoiZWUyYjAyNWYyNGRiMzNhNjgwY2QwODY2MmUwNjQ4ZmRlNWFhOGEyNiIsIm4iOiJna2UgYWNjZXNzIiwiaWQiOjg1NTYwOH0= logs-prod-eu-west-0.grafana.net default | kubectl apply --namespace=default -f  -
   ```
 
-## Continuous Deployment
+## Continuous Delivery
 
 Now that infrastructure layer has been up, CI/CD pipelines can be executed to deploy microservices. Please note currently the frontend and backend microservices are exposed by individual LoadBalancer IPs, hence the connection between them is managed from `./src/config.json` file in `react-bpcalc-k8s` repo. The backend service `go-backend-k8s` reads the mongo url from Vault hence no configuration is required. Once the infra layer is up and static IPs are configured, make sure the frontend-ip is assigned in `./src/config.json`.
 
-## Canary Deployment
-
-
+On a quick note, CI/CD pipeline triggered from `feat/*` branches are deployed in a rolling fashion to GKE dev cluster, whereas any changes to `main` branch is deployed to GKE stg cluster in a Blue/Green deployment fashion. For more details please see readme of `react-bpcalc-k8s` repo.
 
 ## Miscellaneous 
 **Experimental Ingress Config**

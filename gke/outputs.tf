@@ -18,12 +18,12 @@ output "master_kubernetes_version" {
   value       = module.gke.master_version
 }
 
-output "backend_static_ip" {
-  description = "Backend static ip"
-  value       = google_compute_global_address.backend_ip.address
-}
+# output "backend_static_ip" {
+#   description = "Backend static ip"
+#   value       = google_compute_global_address.backend_ip.address
+# }
 
-output "frontend_static_ip" {
-  description = "Frontend static ip"
-  value       = google_compute_global_address.frontend_ip.address
-}
+# output "frontend_static_ip" {
+#   description = "Frontend static ip"
+#   value       = google_compute_global_address.frontend_ip.address
+# }

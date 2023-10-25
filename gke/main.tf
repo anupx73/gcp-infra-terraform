@@ -1,20 +1,20 @@
 data "google_client_config" "default" {}
 
-resource "google_compute_global_address" "frontend_ip" {
-  name                                  = "${var.frontend_ip_name}-ip"
-  project                               = var.project_id
-  description                           = "Static IP address reserved for frontend gke svc."
-  address_type                          = "EXTERNAL"
-  ip_version                            = "IPV4"
-}
+# resource "google_compute_global_address" "frontend_ip" {
+#   name                                  = "${var.frontend_ip_name}-ip"
+#   project                               = var.project_id
+#   description                           = "Static IP address reserved for frontend gke svc."
+#   address_type                          = "EXTERNAL"
+#   ip_version                            = "IPV4"
+# }
 
-resource "google_compute_global_address" "backend_ip" {
-  name                                  = "${var.backend_ip_name}-ip"
-  project                               = var.project_id
-  description                           = "Static IP address reserved for backend gke svc."
-  address_type                          = "EXTERNAL"
-  ip_version                            = "IPV4"
-}
+# resource "google_compute_global_address" "backend_ip" {
+#   name                                  = "${var.backend_ip_name}-ip"
+#   project                               = var.project_id
+#   description                           = "Static IP address reserved for backend gke svc."
+#   address_type                          = "EXTERNAL"
+#   ip_version                            = "IPV4"
+# }
 
 resource "google_compute_network" "vpc" {
   name                                  = "${var.cluster_name}-vpc"

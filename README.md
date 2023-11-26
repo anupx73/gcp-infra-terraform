@@ -13,8 +13,9 @@ This repo holds the IaC for creating infra layer to deploy and run `react-bpcalc
 - Config the GCP project and check if it is accessible from local system shell
   ```
   gcloud config configurations activate anupx73
-  gcloud config get-value project
   gcloud auth application-default login
+  gcloud config set project anupx73
+  gcloud services enable compute.googleapis.com container.googleapis.com
   ```
 - Deploy GKE using terraform scripts from `./gke` folder; this takes about 25mins
 - Note frontend and backend static ip from output; to be used as microservice public url
